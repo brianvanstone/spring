@@ -2,6 +2,7 @@ package tech.notpaper.spring.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
@@ -36,14 +37,14 @@ public class CustomerDAO {
 	 *            customer id
 	 * @return customer object for given id
 	 */
-	public Customer get(Long id) {
+	public Optional<Customer> get(Long id) {
 
 		for (Customer c : customers) {
 			if (c.getId().equals(id)) {
-				return c;
+				return Optional.of(c);
 			}
 		}
-		return null;
+		return Optional.empty();
 	}
 
 	/**
@@ -68,16 +69,16 @@ public class CustomerDAO {
 	 *            the customer id
 	 * @return id of deleted customer object
 	 */
-	public Long delete(Long id) {
+	public boolean delete(Long id) {
 
 		for (Customer c : customers) {
 			if (c.getId().equals(id)) {
 				customers.remove(c);
-				return id;
+				return true;
 			}
 		}
 
-		return null;
+		return false;
 	}
 
 	/**
@@ -88,17 +89,17 @@ public class CustomerDAO {
 	 * @param customer
 	 * @return customer object with id
 	 */
-	public Customer update(Long id, Customer customer) {
+	public Optional<Customer> update(Long id, Customer customer) {
 
 		for (Customer c : customers) {
 			if (c.getId().equals(id)) {
 				customer.setId(c.getId());
 				customers.remove(c);
 				customers.add(customer);
-				return customer;
+				return Optional.of(customer);
 			}
 		}
 
-		return null;
+		return Optional.empty();
 	}
 }
