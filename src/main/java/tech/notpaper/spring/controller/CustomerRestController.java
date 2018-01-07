@@ -27,7 +27,7 @@ public class CustomerRestController {
 		return customerDAO.list();
 	}
 	
-	@GetMapping("/customers/{id}")
+	@GetMapping("/customer/{id}")
 	public ResponseEntity<? extends Object> getCustomer(@PathVariable("id") Long id) {
 		Optional<Customer> opt = customerDAO.get(id);
 		if (opt.isPresent()) {
@@ -48,7 +48,7 @@ public class CustomerRestController {
 		return new ResponseEntity<Customer>(customer, HttpStatus.OK);
 	}
 	
-	@DeleteMapping(value = "/customers/{id}")
+	@DeleteMapping(value = "/customer/{id}")
 	public ResponseEntity<? extends Object> deleteCustomer(@PathVariable Long id) {
 		if (customerDAO.delete(id)) {
 			return new ResponseEntity<Long>(id, HttpStatus.OK);
@@ -57,7 +57,7 @@ public class CustomerRestController {
 		}
 	}
 	
-	@PutMapping("/customers/{id}")
+	@PutMapping("/customer/{id}")
 	public ResponseEntity<? extends Object> updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
 		Optional<Customer> opt = customerDAO.update(id, customer);
 		
